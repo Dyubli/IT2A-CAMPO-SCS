@@ -1,118 +1,65 @@
-
 package SCS;
 
 import java.util.Scanner;
 
 public class SCS {
-    
+
     public static void main(String[] args) {
-       String resp;
-       
-    do{
-        SCS test = new SCS();
+        boolean exit = true;
         Scanner sc = new Scanner(System.in);
-        
-        System.out.println("1. ADD");
-        System.out.println("2. VIEW");
-        System.out.println("3. UPDATE");
-        System.out.println("4. DELETE");
-        System.out.println("5. EXIT");
-        
-        System.out.print("Enter Action: ");
-        int action = sc.nextInt();
-        
-        switch(action){
-            case 1:
-                test.addStudents();
-            break;
-            case 2:
-                test.viewStudents();
-            break;                
-            case 3:
-                test.viewStudents();
-                test.updateStudents();
-            break;           
-            case 4:
-                test.viewStudents();
-                test.deleteStudents();
-                test.viewStudents();
-            break;
-        }
-            System.out.print("Do you want to Continue?");
-            resp = sc.next();
-            
-        }
-        while(resp.equalsIgnoreCase ("yes"));
-                System.out.println("Thank you!"); 
-    }
-    
-    public void addStudents(){
-        Scanner sc = new Scanner(System.in);
-        config conf = new config();
-        System.out.print("Student First Name: ");
-        String fname = sc.next();
-        System.out.print("Last Name: ");
-        String lname = sc.next();
-        System.out.print("Program: ");
-        String program = sc.next();
-        System.out.print ("Year: ");
-        String year = sc.next();
-        System.out.print("Section: ");
-        String section = sc.next();
-        System.out.print("Reason: ");
-        String reason = sc.next();
 
-        String sql = "INSERT INTO Students (First_name, Last_name, Program, Year, Section, Reason) VALUES (?, ?, ?, ?, ?, ?)";
+        do {
+            System.out.println(""); // Empty line for spacing
+            // Print the menu in a box
+            System.out.println("+-----------------------+");
+            System.out.println("|       Main Menu      |");
+            System.out.println("+-----------------------+");
+            System.out.println("| 1. Student           |");
+            System.out.println("| 2. Medicine          |");
+            System.out.println("| 3. Clinic RecordsLog |");
+            System.out.println("| 4. Exit              |");
+            System.out.println("+-----------------------+");
 
+            int choice;
+            while (true) {
+                System.out.print("Enter choice: ");
+                if (sc.hasNextInt()) {
+                    choice = sc.nextInt();
+                    if (choice >= 1 && choice <= 4) {
+                        break;
+                    } else {
+                        System.out.println("Please enter a number between 1 and 4.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a valid number.");
+                    sc.next();
+                }
+            }
 
-        conf.addRecords(sql, fname, lname, program, year, section, reason);
+            switch (choice) {
+                case 1:
+                    Student st = new Student();
+                    st.mainStudent();
+                    break;
+                case 2:
+                    Medicine md = new Medicine();
+                    md.mainMedicine();
+                    break;
+                case 3:
+                    ClinicRecordsLogs crl = new ClinicRecordsLogs();
+                    crl.mainRecords();
+                    break;
+                case 4:
+                    System.out.print("Are you sure you want to Exit? Yes or No: ");
+                    String response = sc.next();
+                    if (response.equalsIgnoreCase("yes")) {
+                        exit = false;
+                    }
+                    break;
+            }
+        } while (exit);
+        System.out.println("");
+        System.out.println("Thank you ! ");
+        sc.close(); // Close the scanner to prevent resource leaks
     }
-    
-    public void viewStudents(){
-        String qry = "SELECT * FROM Students";
-        String[] hdrs = {"ID", "First Name", "Last Name", "Program", "Year","Section", "Reason"};
-        String[] clmns = {"ID", "First_name", "Last_name", "Program", "Year", "Section", "Reason"};
-        
-        config conf = new config();
-        
-        conf.viewRecords(qry, hdrs, clmns);
-    }
-    public void updateStudents(){
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter the ID to update: ");
-        int id = sc.nextInt();
-        
-        System.out.print("Enter new First Name: ");
-        String nfname = sc.next();
-        System.out.print("Enter new Last Name: ");
-        String nlname = sc.next();
-        System.out.print("Enter new Program: ");
-        String nprogram = sc.next();
-        System.out.print("Enter new Year: ");
-        String nyear = sc.next();
-        System.out.print("Enter new Section: ");
-        String nsection = sc.next();
-        System.out.print("Enter new Reason: ");
-        String nreason = sc.next();
-        
-        String qry = " UPDATE Students SET First_Name = ?, Last_Name = ?, Program = ? , Year = ?, Section = ?, Reason = ? WHERE ID = ?";
-        
-        config conf = new config();
-        conf.updateRecord (qry, nfname, nlname, nprogram, nsection, nyear, nreason, id);
-        
-    }
-    public void deleteStudents(){
-        Scanner sc = new Scanner (System.in);
-        System.out.print("Enter the ID to delete: ");
-        int id = sc.nextInt();
-        
-        String qry = "DELETE FROM Students WHERE ID = ?";
-        
-        config conf = new config();
-        conf.deleteRecord(qry, id);
-                
-    }
-    }
-
-    
-    
+}
