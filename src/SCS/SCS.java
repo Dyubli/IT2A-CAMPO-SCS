@@ -9,8 +9,8 @@ public class SCS {
         Scanner sc = new Scanner(System.in);
 
         do {
-            System.out.println(""); // Empty line for spacing
-            // Print the menu in a box
+            System.out.println("");
+           
             System.out.println("+-----------------------+");
             System.out.println("|       Main Menu      |");
             System.out.println("+-----------------------+");
@@ -60,6 +60,7 @@ public class SCS {
         } while (exit);
         System.out.println("");
         System.out.println("Thank you ! ");
-        sc.close(); // Close the scanner to prevent resource leaks
+        sc.close();
+                
     }
 }
