@@ -110,13 +110,13 @@ public class ClinicRecordsLogs {
         config conf = new  config();
         Scanner sc = new Scanner(System.in);
          
-        String rs;        
+        String resp;        
         do{
         System.out.println(""); 
 
       
         System.out.println("+---------------------------+");
-        System.out.println("|     Clinic Records Menu    |");
+        System.out.println("|    CLINIC RECORDS MENU    |");
         System.out.println("+---------------------------+");
         System.out.println("| 1. Add Records            |");
         System.out.println("| 2. View Records           |");
@@ -207,17 +207,21 @@ public class ClinicRecordsLogs {
                 conf.deleteRecord(del, del2);
                 break;
             case 5:
-                
-                System.out.println("Exiting........");
-                break;
-                
+                   return;
+          
+        }
+
+            System.out.print("Do you want to Continue? Yes or No: ");
+            resp = sc.next();
             
-        }    
-            System.out.println("");
-            System.out.print("Do you want to continue on Clinic Record Log panel? Yes or No: ");
-            rs = sc.next();
-    }while(rs.equalsIgnoreCase("yes"));
-        
+            while(!resp.equalsIgnoreCase("yes") && !resp.equalsIgnoreCase("no")) {
+                System.out.println("Invalid input, Enter again: ");
+                resp = sc.next();
+            }
+           
+            } while(resp.equalsIgnoreCase("yes"));
+            System.out.println("\nThank you!");
+            System.exit(0);
         
     }
     

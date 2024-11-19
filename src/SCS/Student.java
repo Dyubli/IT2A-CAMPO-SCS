@@ -11,26 +11,72 @@ public void addStudent(){
     
         Scanner sc = new Scanner(System.in);
         config conf = new config();
+        
+        String fname;
+        while(true){
         System.out.print("Enter Student First Name: ");
-        String fname = sc.next();
+        fname = sc.next();
+            if(fname.matches("[a-zA-Z\\s]+")){
+                break;
+            }
+            System.out.println("Invalid Input.Please Enter Again.");}
+        
+        String lname;
+        while(true){
         System.out.print("Enter Student Last Name: ");
-        String lname = sc.next();
-        System.out.print("Contact No. : ");
-        String contact = sc.next();
-        System.out.print ("Address: ");
-        String add = sc.next();
-        System.out.print("Gender: ");
-        String gen = sc.next();
+        lname = sc.next();
+            if(lname.matches("[a-zA-Z\\s]+")){
+                break;
+            }
+            System.out.println("Invalid Input.Please Enter Again.");}
+        
+        String contact;
+        while(true){
+        System.out.print("Enter Contact Number: ");
+        contact = sc.next();
+            if(contact.matches("\\d{11}")){
+                break;
+            }
+            System.out.println("Invalid Input.Please Enter Again.");}
+        
+        String add;
+        while(true){
+        System.out.print("Enter Address: ");
+        add = sc.next();
+            if(add.matches("[a-zA-Z\\s]+")){
+                break;
+            }
+            System.out.println("Invalid Input.Please Enter Again.");}
+            
+            String gen;
+             while (true) {
+            System.out.print("Enter Gender (female or male): ");
+            gen = sc.next().toLowerCase(); 
+
+            if (gen.equals("female") || gen.equals("male")) {
+                break; 
+            } else {
+                System.out.println("Invalid input. Please enter 'female' or 'male'.");
+            }
+        }
+        String stats;
+        while(true){
         System.out.print("Status: ");
-        String stats = sc.next();
+        stats = sc.next();
+            if(stats.matches("[a-zA-Z\\s]+")){
+                break;
+            }
+            System.out.println("Invalid Input.Please Enter Again.");}
+             
 
         String sql = "INSERT INTO Students (First_name, Last_name, Contact_Info, Address, Gender, Status) VALUES (?, ?, ?, ?, ?, ?)";
 
 
         conf.addRecords(sql, fname, lname, contact, add, gen, stats);
     }
-public void viewStudents(){
-    
+
+    public void viewStudents(){
+
         String qry = "SELECT * FROM Students";
         String[] hdrs = {"ID", "First Name", "Last Name", "Contact No.", "Address","Gender", "Status"};
         String[] clmns = {"ID", "First_name", "Last_name", "Contact_Info", "Address", "Gender", "Status"};
@@ -39,6 +85,87 @@ public void viewStudents(){
         
         conf.viewRecords(qry, hdrs, clmns);
     }
+    
+    public void updateStudents(){
+        Scanner sc = new Scanner(System.in);
+        config conf = new config ();
+        
+        System.out.print("Enter Student ID to update: ");
+        int ID;
+        
+        while (true){
+            ID =sc.nextInt();
+            
+            if(conf.getSingleValues("SELECT ID FROM Student WHERE ID = ?", ID) != 0){
+                break;
+            }else{
+                System.out.println("ID not found, Enter Again!");
+                sc.next();}
+        }
+        String fname;
+        while(true){
+        System.out.print("Enter Student First Name: ");
+        fname = sc.next();
+            if(fname.matches("[a-zA-Z\\s]+")){
+                break;
+            }
+            System.out.println("Invalid Input.Please Enter Again.");}
+        
+        String lname;
+        while(true){
+        System.out.print("Enter Student Last Name: ");
+        lname = sc.next();
+            if(lname.matches("[a-zA-Z\\s]+")){
+                break;
+            }
+            System.out.println("Invalid Input.Please Enter Again.");}
+        
+        String contact;
+        while(true){
+        System.out.print("Enter Contact Number: ");
+        contact = sc.next();
+            if(contact.matches("\\d{11}")){
+                break;
+            }
+            System.out.println("Invalid Input.Please Enter Again.");}
+        
+        String add;
+        while(true){
+        System.out.print("Enter Address: ");
+        add = sc.next();
+            if(add.matches("[a-zA-Z\\s]+")){
+                break;
+            }
+            System.out.println("Invalid Input.Please Enter Again.");}
+            
+            String gen;
+             while (true) {
+            System.out.print("Enter Gender (female or male): ");
+            gen = sc.next().toLowerCase(); 
+
+            if (gen.equals("female") || gen.equals("male")) {
+                break; 
+            } else {
+                System.out.println("Invalid input. Please enter 'female' or 'male'.");
+            }
+        }
+        String stats;
+        while(true){
+        System.out.print("Status: ");
+        stats = sc.next();
+            if(stats.matches("[a-zA-Z\\s]+")){
+                break;
+            }
+            System.out.println("Invalid Input.Please Enter Again.");}
+             
+
+        String sql = "UPDATE Students SET (First_name, Last_name, Contact_Info, Address, Gender, Status) VALUES (?, ?, ?, ?, ?, ?)";
+
+
+        conf.addRecords(sql, fname, lname, contact, add, gen, stats);
+    }
+    
+ 
 
 public void mainStudent(){
     
@@ -50,11 +177,11 @@ public void mainStudent(){
     do{
        
        Scanner sc = new Scanner(System.in);
-        System.out.println(""); // 
+        System.out.println(""); 
         
        
         System.out.println("+---------------------------+");
-        System.out.println("|        Student Menu       |");
+        System.out.println("|        STUDENT MENU       |");
         System.out.println("+---------------------------+");
         System.out.println("| 1. Add Student            |");
         System.out.println("| 2. View Students          |");
@@ -142,18 +269,29 @@ public void mainStudent(){
                 
                 conf.deleteRecord(sqdel, iDELETE);
             break;
+            
+             case 5:
+                   return;
+          
         }
-            System.out.println("");
+
             System.out.print("Do you want to Continue? Yes or No: ");
             resp = sc.next();
             
+            while(!resp.equalsIgnoreCase("yes") && !resp.equalsIgnoreCase("no")) {
+                System.out.println("Invalid input, Enter again: ");
+                resp = sc.next();
+            }
+           
+            } while(resp.equalsIgnoreCase("yes"));
+            System.out.println("\nThank you!");
+            System.exit(0);
+            
         }
-        while(resp.equalsIgnoreCase ("yes"));
     
               
     }
 
-}
     
     
     

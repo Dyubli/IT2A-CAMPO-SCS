@@ -7,17 +7,18 @@ public class SCS {
     public static void main(String[] args) {
         boolean exit = true;
         Scanner sc = new Scanner(System.in);
+        String resp;
 
         do {
             System.out.println("");
            
             System.out.println("+-----------------------+");
-            System.out.println("|       Main Menu      |");
-            System.out.println("+-----------------------+");
-            System.out.println("| 1. Student           |");
-            System.out.println("| 2. Medicine          |");
-            System.out.println("| 3. Clinic RecordsLog |");
-            System.out.println("| 4. Exit              |");
+            System.out.println("|       MAIN MENU       |");
+            System.out.println("|-----------------------|");
+            System.out.println("| 1. Student            |");
+            System.out.println("| 2. Medicine           |");
+            System.out.println("| 3. Clinic RecordsLog  |");
+            System.out.println("| 4. Exit               |");
             System.out.println("+-----------------------+");
 
             int choice;
@@ -50,17 +51,21 @@ public class SCS {
                     crl.mainRecords();
                     break;
                 case 4:
-                    System.out.print("Are you sure you want to Exit? Yes or No: ");
-                    String response = sc.next();
-                    if (response.equalsIgnoreCase("yes")) {
-                        exit = false;
-                    }
-                    break;
+                    System.out.println("Thank YOu!");
+                    System.exit(0);
             }
-        } while (exit);
-        System.out.println("");
-        System.out.println("Thank you ! ");
-        sc.close();
+            
+         System.out.print("Do you want to Continue? Yes or No: ");
+            resp = sc.next();
+            
+            while(!resp.equalsIgnoreCase("yes") && !resp.equalsIgnoreCase("no")) {
+                System.out.println("Invalid input, Enter again: ");
+                resp = sc.next();
+            }
+           
+            } while(resp.equalsIgnoreCase("yes"));
+        
+            System.out.println("\nThank you!");
                 
     }
 }

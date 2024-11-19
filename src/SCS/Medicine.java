@@ -50,14 +50,14 @@ public class Medicine {
         config conf = new config();
         Scanner sc = new Scanner(System.in);
         
-        String res;
+        String resp;
         do{
             
        System.out.println(""); 
 
         
         System.out.println("+--------------------------+");
-        System.out.println("|      Medicine Menu       |");
+        System.out.println("|      MEDICINE MENU       |");
         System.out.println("+--------------------------+");
         System.out.println("| 1. Add Medicine          |");
         System.out.println("| 2. View Medicine         |");
@@ -152,17 +152,21 @@ public class Medicine {
                   conf.deleteRecord(sqldel, id5);
                  break;
              case 5:
-                 System.out.println("Exiting......");
-                 break;
-         }
-         
-            System.out.println("");
-            System.out.print("Do you want to continue on Medicine Panel? Yes or No: ");
-            res = sc.next();
-    }while(res.equalsIgnoreCase("yes"));
-        
-        
-        
+                   return;
+          
+        }
+
+            System.out.print("Do you want to Continue? Yes or No: ");
+            resp = sc.next();
+            
+            while(!resp.equalsIgnoreCase("yes") && !resp.equalsIgnoreCase("no")) {
+                System.out.println("Invalid input, Enter again: ");
+                resp = sc.next();
+            }
+           
+            } while(resp.equalsIgnoreCase("yes"));
+            System.out.println("\nThank you!");
+            System.exit(0);
     }
     
     }
