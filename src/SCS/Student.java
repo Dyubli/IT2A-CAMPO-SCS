@@ -37,7 +37,7 @@ public void addStudent(){
             if(contact.matches("\\d{11}")){
                 break;
             }
-            System.out.println("Invalid Input.Please Enter Again.");}
+            System.out.println("Invalid Input. Please enter a valid 11-digit contact number.");}
         
         String add;
         while(true){
@@ -87,85 +87,90 @@ public void addStudent(){
     }
     
     public void updateStudents(){
-        Scanner sc = new Scanner(System.in);
-        config conf = new config ();
-        
-        System.out.print("Enter Student ID to update: ");
-        int ID;
-        
-        while (true){
-            ID =sc.nextInt();
-            
-            if(conf.getSingleValues("SELECT ID FROM Student WHERE ID = ?", ID) != 0){
-                break;
-            }else{
-                System.out.println("ID not found, Enter Again!");
-                sc.next();}
-        }
-        String fname;
-        while(true){
-        System.out.print("Enter Student First Name: ");
-        fname = sc.next();
-            if(fname.matches("[a-zA-Z\\s]+")){
-                break;
-            }
-            System.out.println("Invalid Input.Please Enter Again.");}
-        
-        String lname;
-        while(true){
-        System.out.print("Enter Student Last Name: ");
-        lname = sc.next();
-            if(lname.matches("[a-zA-Z\\s]+")){
-                break;
-            }
-            System.out.println("Invalid Input.Please Enter Again.");}
-        
-        String contact;
-        while(true){
-        System.out.print("Enter Contact Number: ");
-        contact = sc.next();
-            if(contact.matches("\\d{11}")){
-                break;
-            }
-            System.out.println("Invalid Input.Please Enter Again.");}
-        
-        String add;
-        while(true){
-        System.out.print("Enter Address: ");
-        add = sc.next();
-            if(add.matches("[a-zA-Z\\s]+")){
-                break;
-            }
-            System.out.println("Invalid Input.Please Enter Again.");}
-            
-            String gen;
-             while (true) {
-            System.out.print("Enter Gender (female or male): ");
-            gen = sc.next().toLowerCase(); 
+     Scanner sc = new Scanner(System.in);
+config conf = new config();
 
-            if (gen.equals("female") || gen.equals("male")) {
-                break; 
-            } else {
-                System.out.println("Invalid input. Please enter 'female' or 'male'.");
-            }
-        }
-        String stats;
-        while(true){
-        System.out.print("Status: ");
-        stats = sc.next();
-            if(stats.matches("[a-zA-Z\\s]+")){
-                break;
-            }
-            System.out.println("Invalid Input.Please Enter Again.");}
-             
-
-        String sql = "UPDATE Students SET (First_name, Last_name, Contact_Info, Address, Gender, Status) VALUES (?, ?, ?, ?, ?, ?)";
+String sql = "UPDATE Students SET First_name = ?, Last_name = ?, Contact_Info = ?, Address= ?, Gender =?, Status = ? WHERE ID = ?";
+System.out.print("Enter Student ID to update: ");
+int ID;
 
 
-        conf.addRecords(sql, fname, lname, contact, add, gen, stats);
+while (true) {
+    ID = sc.nextInt();
+
+    if (conf.getSingleValues("SELECT ID FROM Students WHERE ID = ?", ID) != 0) {
+        break;
+    } else {
+        System.out.println("ID not found, Enter Again!");
+        sc.nextLine(); 
     }
-    
- 
+}
+
+String fname;
+while (true) {
+    System.out.print("Enter New Student First Name: ");
+    fname = sc.next();
+    if (fname.matches("[a-zA-Z\\s]+")) {
+        break;
+    }
+    System.out.println("Invalid Input. Please Enter Again.");
+}
+
+String lname;
+while (true) {
+    System.out.print("Enter New Student Last Name: ");
+    lname = sc.next();
+    if (lname.matches("[a-zA-Z\\s]+")) {
+        break;
+    }
+    System.out.println("Invalid Input. Please Enter Again.");
+}
+
+String contact;
+while (true) {
+    System.out.print("Enter New Contact Number: ");
+    contact = sc.next();
+    if (contact.matches("\\d{11}")) { 
+        break;
+    } else {
+        System.out.println("Invalid Input. Please enter a valid 11-digit contact number.");
+    }
+}
+
+sc.nextLine();  
+
+String add;
+System.out.print("Enter New Address: ");
+add = sc.nextLine(); 
+
+String gen;
+while (true) {
+    System.out.print("Enter New Gender (female or male): ");
+    gen = sc.next().toLowerCase();
+
+    if (gen.equals("female") || gen.equals("male")) {
+        break;
+    } else {
+        System.out.println("Invalid input. Please enter 'female' or 'male'.");
+    }
+}
+
+sc.nextLine();
+
+String stats;
+while (true) {
+    System.out.print("Status: ");
+    stats = sc.next();
+    if (stats.matches("[a-zA-Z\\s]+")) {
+        break;
+    }
+    System.out.println("Invalid Input. Please Enter Again.");
+}
+
+sc.nextLine(); 
+conf.addRecords(sql, fname, lname, contact, add, gen, stats, ID);
+
+    }
 
 public void mainStudent(){
     
@@ -207,7 +212,6 @@ public void mainStudent(){
                 }
             }
          
-        
         switch(choice){
             case 1:
                 st.addStudent();
@@ -217,35 +221,7 @@ public void mainStudent(){
             break;                
             case 3:
                 st.viewStudents();
-                String sqlUP = "UPDATE Students SET Contact_Info = ?, Address = ?, Gender = ?, Status = ? WHERE  ID = ?  ";
-                
-                 int iup;
-                while (true) {
-                System.out.print("Enter Student ID to update: ");
-                if (sc.hasNextInt()) {
-                    iup = sc.nextInt();
-                    if (conf.getSingleValues("SELECT ID  FROM Students  WHERE ID = ?", iup) != 0) {
-                        break;
-                    } else {
-                        System.out.println("Selected Student doesn't exist.");
-                    }
-                } else {
-                    System.out.println("Invalid input. Please enter a integer Student ID.");
-                    sc.next(); 
-                }
-            }
-                
-                System.out.print("Enter new Contact No. : ");
-                String newcon = sc.next();
-                System.out.print("Enter new Address: ");
-                String newadd = sc.next();
-                System.out.print("Enter new Gender: ");
-                String newgen = sc.next();
-                System.out.print("Enter new Status: ");
-                String newstats = sc.next();
-                
-                conf.updateRecord(sqlUP, newcon, newadd, newgen, newstats, iup);                
-                
+                st.updateStudents();
              break;      
              
             case 4:

@@ -33,7 +33,7 @@ public class SCS {
                     }
                 } else {
                     System.out.println("Invalid input. Please enter a valid number.");
-                    sc.next();
+                    sc.nextLine();
                 }
             }
 
