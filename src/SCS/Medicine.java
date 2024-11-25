@@ -13,9 +13,19 @@ public class Medicine {
         
         System.out.print("Enter name of Medicine : ");
         String med = sc.next();
-        System.out.print("Dosage Form (Tablet, Liquid, Injection): ");
-        String dis = sc.next();
-        System.out.print("Dosage Strength (500 MG): ");
+
+        String dis;
+        while (true) {
+            System.out.print("Dosage Form (Tablet, Liquid, Injection): ");
+            dis = sc.next();
+           
+            if (dis.equalsIgnoreCase("Tablet") || dis.equalsIgnoreCase("Liquid") || dis.equalsIgnoreCase("Injection")) {
+                break; 
+            }
+           
+                System.out.println("Invalid input! Please enter 'Tablet', 'Liquid', or 'Injection'.");
+            }
+        System.out.print("Dosage Strength: ");
         String dos = sc.next();
         System.out.print("Side Effects: ");
         String side = sc.next();
