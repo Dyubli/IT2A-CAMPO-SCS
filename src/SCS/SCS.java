@@ -1,5 +1,6 @@
 package SCS;
 
+import static java.lang.System.exit;
 import java.util.Scanner;
 
 public class SCS {
@@ -50,22 +51,14 @@ public class SCS {
                     ClinicRecordsLogs crl = new ClinicRecordsLogs();
                     crl.mainRecords();
                     break;
-                case 4:
-                    System.out.println("Thank YOu!");
-                    System.exit(0);
+                case 4:     
+                    System.out.println("");
+                    System.out.println("Exitingg...");
+                    exit(0);
+                    break;
             }
             
-         System.out.print("Do you want to Continue? Yes or No: ");
-            resp = sc.next();
-            
-            while(!resp.equalsIgnoreCase("yes") && !resp.equalsIgnoreCase("no")) {
-                System.out.println("Invalid input, Enter again: ");
-                resp = sc.next();
-            }
-           
-            } while(resp.equalsIgnoreCase("yes"));
-        
-            System.out.println("\nThank you!");
+        }while(exit);
                 
     }
 }

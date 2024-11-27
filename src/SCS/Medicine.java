@@ -25,16 +25,18 @@ public class Medicine {
            
                 System.out.println("Invalid input! Please enter 'Tablet', 'Liquid', or 'Injection'.");
             }
+        sc.nextLine();
         System.out.print("Dosage Strength: ");
-        String dos = sc.next();
+        String dos = sc.nextLine();
         System.out.print("Side Effects: ");
-        String side = sc.next();
+        String side = sc.nextLine();
         System.out.print("Purpose: ");
-        String pur = sc.next();
+        String pur = sc.nextLine();
         System.out.print("Quantity: ");
         double quan = sc.nextDouble();
+        sc.nextLine();
         System.out.print("Expiration Date (YYYY - MM - DD): ");
-        String date = sc.next();
+        String date = sc.nextLine();
         
         String sqlmed = "INSERT INTO Medicine (Medicine_Name, Dosage_Form, Dosage_Strength, Side_Effects, Pupose, Quantity, Expiration_Date) VALUES(?,?,?,?,?,?,?)";
         conf.addRecords(sqlmed,med, dis,dos,side,pur,quan,date);
@@ -102,7 +104,7 @@ public class Medicine {
                  break;
              case 3:
                    md.viewMedicine();
-                   String sql = "UPDATE Medicine SET  Dosage_Strength = ?, Side_Effects = ?,  Pupose = ?, Expiration_Date = ?, Quantity = ? WHERE Medicine_ID = ?";
+                   String sql = "UPDATE Medicine SET  Medicine_Name = ?, Dosage_Form = ?,  Dosage_Strength = ?, Side_Effects = ?,  Pupose = ?, Expiration_Date = ?, Quantity = ? WHERE Medicine_ID = ?";
                   
                    
                    int up;
@@ -119,21 +121,34 @@ public class Medicine {
                     System.out.println("Invalid input. Please enter a integer Medicine ID.");
                     sc.next(); 
                 }
-            }
+            }         
+                sc.nextLine();
+                    System.out.print("Enter name of Medicine : ");
+        String newmed = sc.nextLine();
 
-                   
+        String newdis;
+        while (true) {
+            System.out.print("Dosage Form (Tablet, Liquid, Injection): ");
+            newdis = sc.nextLine();
+           
+            if (newdis.equalsIgnoreCase("Tablet") || newdis.equalsIgnoreCase("Liquid") || newdis.equalsIgnoreCase("Injection")) {
+                break; 
+            }
+           
+                System.out.println("Invalid input! Please enter 'Tablet', 'Liquid', or 'Injection'.");
+            }
                    System.out.print("Enter new Dosage Strength: ");
-                   String newdos = sc.next();
+                   String newdos = sc.nextLine();
                    System.out.print("Enter new Side Effects: ");
-                   String newside = sc.next();
+                   String newside = sc.nextLine();
                    System.out.print("Enter new Purpose: ");
-                   String newpose = sc.next();
+                   String newpose = sc.nextLine();
                    System.out.print("Enter new Expiration Date: ");
-                   String newdate = sc.next();
-                   System.out.println("Enter new Quantity: ");
-                   double newquan = sc.nextDouble();
+                   String newdate = sc.nextLine();
+                   System.out.print("Enter new Quantity: ");
+                   int newquan = sc.nextInt();
                    
-                   conf.updateRecord(sql, newdos, newside, newpose, newdate,newquan,up);
+                   conf.updateRecord(sql, newmed, newdis, newdos, newside, newpose, newdate,newquan,up);
                  break;
              case 4:
                   md.viewMedicine();
@@ -162,21 +177,15 @@ public class Medicine {
                   conf.deleteRecord(sqldel, id5);
                  break;
              case 5:
-                   return;
-          
+                break;
+                   
         }
-
-            System.out.print("Do you want to Continue? Yes or No: ");
-            resp = sc.next();
-            
-            while(!resp.equalsIgnoreCase("yes") && !resp.equalsIgnoreCase("no")) {
-                System.out.println("Invalid input, Enter again: ");
-                resp = sc.next();
-            }
+     
            
-            } while(resp.equalsIgnoreCase("yes"));
-            System.out.println("\nThank you!");
-            System.exit(0);
-    }
+              System.out.println("");
+               System.out.print("Do you want to continue? Yes or No: ");
+               resp = sc.next();
+    }while(resp.equalsIgnoreCase("yes"));
     
     }
+}

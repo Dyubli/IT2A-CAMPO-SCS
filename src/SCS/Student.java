@@ -14,7 +14,7 @@ public void addStudent(){
         
         String fname;
         while(true){
-        System.out.print("Enter Student First Name: ");
+        System.out.print("First Name: ");
         fname = sc.next();
             if(fname.matches("[a-zA-Z\\s]+")){
                 break;
@@ -23,7 +23,7 @@ public void addStudent(){
         
         String lname;
         while(true){
-        System.out.print("Enter Student Last Name: ");
+        System.out.print("Last Name: ");
         lname = sc.next();
             if(lname.matches("[a-zA-Z\\s]+")){
                 break;
@@ -32,23 +32,17 @@ public void addStudent(){
         
         String contact;
         while(true){
-        System.out.print("Enter Contact Number: ");
+        System.out.print("Contact Number: ");
         contact = sc.next();
             if(contact.matches("\\d{11}")){
                 break;
             }
             System.out.println("Invalid Input. Please enter a valid 11-digit contact number.");}
         
-        String add;
-        while(true){
-        System.out.print("Enter Address: ");
-        add = sc.next();
-            if(add.matches("[a-zA-Z\\s]+")){
-                break;
-            }
-            System.out.println("Invalid Input.Please Enter Again.");}
-            
-            String gen;
+        System.out.print("Address: ");
+        String add = sc.next();
+
+        String gen;
              while (true) {
             System.out.print("Enter Gender (female or male): ");
             gen = sc.next().toLowerCase(); 
@@ -59,6 +53,7 @@ public void addStudent(){
                 System.out.println("Invalid input. Please enter 'female' or 'male'.");
             }
         }
+        
         String stats;
         while(true){
         System.out.print("Status: ");
@@ -176,7 +171,7 @@ public void mainStudent(){
     
      Student st = new Student();
     config conf = new config();
-    
+    boolean exit = true;    
     
     String resp;
     do{
@@ -247,28 +242,18 @@ public void mainStudent(){
             break;
             
              case 5:
-                   return;
-          
+                break;
+                   
         }
-
-            System.out.print("Do you want to Continue? Yes or No: ");
-            resp = sc.next();
-            
-            while(!resp.equalsIgnoreCase("yes") && !resp.equalsIgnoreCase("no")) {
-                System.out.println("Invalid input, Enter again: ");
-                resp = sc.next();
-            }
+     
            
-            } while(resp.equalsIgnoreCase("yes"));
-            System.out.println("\nThank you!");
-            System.exit(0);
-            
-        }
-    
-              
-    }
+              System.out.println("");
+               System.out.print("Do you want to continue? Yes or No: ");
+               resp = sc.next();
+    }while(resp.equalsIgnoreCase("yes"));
 
-    
+    }
+}
     
     
     
